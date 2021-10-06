@@ -1,0 +1,27 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Theme.Gallery" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/blue_dark</item>
+        <item name="colorPrimaryVariant">@color/blue_medium</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. Make it black for API < 30. It looks better in Image Preview -->
+        <item name="android:statusBarColor">@color/black</item>
+    </style>
+
+    <style name="Widget.Theme.Gallery.AppBar" parent="ThemeOverlay.MaterialComponents.Dark"/>
+
+    <style name="Theme.Gallery.Splash" parent="Theme.Gallery">
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
+
+    <style name="Theme.Gallery.Image" parent="Theme.Gallery" >
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+</resources>

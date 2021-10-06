@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Gallery</string>
+    <!-- Title for ImagePreviewFragment screen-->
+    <string name="image_preview">Image preview</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <!-- Dialog for permission rationale -->
+    <string name="permission_rationale_dialog_title">Storage permission is required</string>
+    <string name="permission_rationale_dialog_body">Images can\'t be displayed until permission to
+        read storage is granted. Would you like to grant the permission?</string>
+    <string name="permission_rationale_dialog_yes">Yes</string>
+    <string name="permission_rationale_dialog_no">No, thanks</string>
+
+    <!-- Dialog for permission explanation -->
+    <string name="permission_explanation_dialog_title">Permission to storage is not granted</string>
+    <string name="permission_explanation_dialog_body">Previously you denied permission to storage,
+        so the images can\'t be displayed.
+        You could grant this permission in Application Settings.</string>
+    <string name="permission_explanation_dialog_ok">OK</string>
+
+    <!-- Texts for placeholders -->
+    <string name="empty_gallery_placeholder">Gallery is currently empty</string>
+    <string name="permission_placeholder">Images are not loaded, because the permission
+        to read external storage is not granted</string>
+
+    <!-- Error Toasts -->
+    <string name="toast_no_system_galleries">The Image can\'t be opened.
+        There are no Gallery applications installed.</string>
+    <string name="toast_image_is_corrupted">Can\'t open image.</string>
+
+    <!-- Content descriptions -->
+    <string name="picture_element_cd">Photo inside the gallery</string>
+</resources>

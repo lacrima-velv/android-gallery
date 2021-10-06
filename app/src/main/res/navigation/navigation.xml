@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/imagesGridFragment">
+
+    <dialog
+        android:id="@+id/deniedPermissionDialogShowRationaleFragment2"
+        android:name="com.example.gallery.permissiondialogs.DeniedPermissionDialogShowRationaleFragment"
+        android:label="DeniedPermissionDialogShowRationaleFragment" />
+    <dialog
+        android:id="@+id/deniedPermissionDialogFragment"
+        android:name="com.example.gallery.permissiondialogs.DeniedPermissionDialogExplanation"
+        android:label="fragment_go_to_settings_dialog" />
+    <fragment
+        android:id="@+id/imagesGridFragment"
+        android:name="com.example.gallery.imagesgrid.ImagesGridFragment"
+        android:label="ImagesGridFragment" >
+        <action
+            android:id="@+id/action_imagesGridFragment_to_deniedPermissionDialogFragment"
+            app:destination="@id/deniedPermissionDialogFragment" />
+        <action
+            android:id="@+id/action_imagesGridFragment_to_imagePreviewFragment"
+            app:destination="@id/imagePreviewFragment" />
+        <action
+            android:id="@+id/action_imagesGridFragment_to_deniedPermissionDialogShowRationaleFragment2"
+            app:destination="@id/deniedPermissionDialogShowRationaleFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/imagePreviewFragment"
+        android:name="com.example.gallery.imagepreview.ImagePreviewFragment"
+        android:label="@string/image_preview"
+        tools:layout="@layout/fragment_image_preview">
+        <action
+            android:id="@+id/action_imagePreviewFragment_to_imagesGridFragment"
+            app:destination="@id/imagesGridFragment" />
+        <argument
+            android:name="imageUri"
+            app:argType="string" />
+    </fragment>
+</navigation>
