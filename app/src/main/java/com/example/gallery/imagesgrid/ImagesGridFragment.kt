@@ -6,8 +6,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,14 +13,15 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat.checkSelfPermission
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gallery.R
-import com.example.gallery.data.MediaStoreImage
 import com.example.gallery.Utils.setUiWindowInsets
 import com.example.gallery.Utils.toPixels
+import com.example.gallery.data.MediaStoreImage
 import com.example.gallery.data.ViewModel
 import com.example.gallery.databinding.FragmentImagesGridBinding
 import com.example.gallery.permissiondialogs.DeniedPermissionDialogExplanation
@@ -112,6 +111,20 @@ class ImagesGridFragment : Fragment(),
             imagesAdapter.submitList(images)
         }
 
+        /*
+        Don't request openMediaStore again if configuration changes. But show permission
+        placeholder, if it was requested, but the permission is still not granted
+         */
+        viewModel.isOpenMediaStoreRequested.observe(viewLifecycleOwner) { isRequested ->
+            if (!isRequested) {
+                openMediaStore()
+            } else if (checkSelfPermission(requireContext(),
+                    Manifest.permission.READ_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_DENIED) {
+                showNoAccess()
+            }
+        }
+
         // Correct top and bottom padding, because they are not respected when setting window insets
         val topPaddingPx = topPaddingDp.toPixels
         val bottomPaddingPx = bottomPaddingDp.toPixels
@@ -119,7 +132,6 @@ class ImagesGridFragment : Fragment(),
         setUiWindowInsets(binding.galleryGrid, topPaddingPx, bottomPaddingPx)
 
         Timber.d("openMediaStore() is calling in onCreateView()")
-        openMediaStore()
 
         return binding.root
     }
@@ -190,8 +202,10 @@ class ImagesGridFragment : Fragment(),
 
     // Show dialog with rationale and and a button to request the permission again
     private fun showDeniedPermissionShowRationale() {
+        viewModel.startRequestingOpenMediaStore()
         val dialog = DeniedPermissionDialogShowRationaleFragment()
         dialog.show(childFragmentManager, "Rationale")
+        viewModel.doneRequestingMediaStore()
     }
     /*
     Show dialog with explanation why the permission is necessary,
@@ -204,6 +218,7 @@ class ImagesGridFragment : Fragment(),
 
     // General function for loading images and requesting permission if it's necessary
     private fun openMediaStore() {
+        viewModel.startRequestingOpenMediaStore()
         when (checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)) {
             PackageManager.PERMISSION_GRANTED ->
                 // Use the API that requires the permission.
@@ -224,6 +239,7 @@ class ImagesGridFragment : Fragment(),
                 }
             }
         }
+        viewModel.doneRequestingMediaStore()
     }
 
     /*

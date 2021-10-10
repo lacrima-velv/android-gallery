@@ -1,10 +1,14 @@
 package com.example.gallery.imagepreview
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -12,6 +16,7 @@ import com.davemorrissey.labs.subscaleview.ImageSource
 import com.example.gallery.data.ViewModel
 import com.example.gallery.Utils.setUiWindowInsets
 import com.example.gallery.databinding.FragmentImagePreviewBinding
+import java.io.IOException
 
 class ImagePreviewFragment : Fragment() {
 
@@ -33,7 +38,27 @@ class ImagePreviewFragment : Fragment() {
         // Get image URI from ImagesGridFragment to display it in scalable image view
         val imageUri = ImagePreviewFragmentArgs.fromBundle(requireArguments()).imageUri
 
-        binding.imagePreview.setImage(ImageSource.uri(imageUri))
+        fun checkIfImageFileExists() = try {
+            context?.contentResolver?.openInputStream(imageUri.toUri()).use {}
+            true
+        } catch (e: IOException) {
+            false
+        }
+
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) == PackageManager.PERMISSION_GRANTED) {
+                if (checkIfImageFileExists()) {
+                    binding.imagePreview.setImage(ImageSource.uri(imageUri))
+                } else {
+                    binding.imageEmptyPreview.visibility = View.VISIBLE
+                    binding.errorTextPreview.visibility = View.VISIBLE
+                }
+        } else {
+            binding.imagePermissionPreview.visibility = View.VISIBLE
+            binding.noPermissionTextPreview.visibility = View.VISIBLE
+        }
 
         // Remove/Add Top App Bar by tapping the screen
         binding.imagePreview.setOnClickListener {

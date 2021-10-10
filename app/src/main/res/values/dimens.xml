@@ -1,7 +1,5 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
     <dimen name="margin_picture_element">4dp</dimen>
     <dimen name="padding_inside_grid">4dp</dimen>
     <dimen name="elevation_transparent_toolbar">2dp</dimen>
-    <dimen name="margin_no_permission_text">16dp</dimen>
 </resources>

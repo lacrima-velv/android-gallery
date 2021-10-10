@@ -13,7 +13,7 @@ class DeniedPermissionDialogExplanation : DialogFragment() {
             .setTitle(getText(R.string.permission_explanation_dialog_title))
             .setMessage(getText(R.string.permission_explanation_dialog_body))
             .setPositiveButton(getText(R.string.permission_explanation_dialog_ok)) {
-                    dialog, _ -> dialog.cancel()
+                    dialog, _ -> dialog.dismiss()
             }
             .show()
     }

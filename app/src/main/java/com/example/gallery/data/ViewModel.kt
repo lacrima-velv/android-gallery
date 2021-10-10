@@ -6,6 +6,7 @@ import android.content.ContentUris
 import android.database.ContentObserver
 import android.net.Uri
 import android.os.Handler
+import android.os.Looper
 import android.provider.MediaStore
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -33,6 +34,24 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
 
     fun setAppBarInPreviewVisibility(isVisible: Boolean) {
         _isAppBarInPreviewVisible.value = isVisible
+    }
+
+    // Don't request openMediaStore in onCreateView() again after configuration changes
+    private val _isOpenMediaStoreRequested = MutableLiveData<Boolean>()
+    val isOpenMediaStoreRequested: LiveData<Boolean>
+        get() = _isOpenMediaStoreRequested
+
+    fun startRequestingOpenMediaStore() {
+        _isOpenMediaStoreRequested.value = false
+    }
+
+    fun doneRequestingMediaStore() {
+        _isOpenMediaStoreRequested.value = true
+    }
+
+    init {
+        // Set default value to false to request openMediaStore in onCreateView()
+        _isOpenMediaStoreRequested.value = false
     }
 
     private var contentObserver: ContentObserver? = null
@@ -115,7 +134,8 @@ class ViewModel(application: Application) : AndroidViewModel(application) {
         uri: Uri,
         observer: (selfChange: Boolean) -> Unit
     ): ContentObserver {
-        val contentObserver = object : ContentObserver(Handler()) {
+        val handler = Handler(Looper.getMainLooper())
+        val contentObserver = object : ContentObserver(handler) {
             override fun onChange(selfChange: Boolean) {
                 observer(selfChange)
             }

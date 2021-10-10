@@ -2,11 +2,6 @@
     <string name="app_name">Gallery</string>
     <!-- Title for ImagePreviewFragment screen-->
     <string name="image_preview">Image preview</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
     <!-- Dialog for permission rationale -->
     <string name="permission_rationale_dialog_title">Storage permission is required</string>
@@ -24,8 +19,14 @@
 
     <!-- Texts for placeholders -->
     <string name="empty_gallery_placeholder">Gallery is currently empty</string>
-    <string name="permission_placeholder">Images are not loaded, because the permission
+    <string name="permission_placeholder_gallery">Images are not loaded, because the permission
         to read external storage is not granted</string>
+    <string name="error_preview_placeholder">
+        An error occurred.\nCan\'t display this image
+    </string>
+    <string name="permission_placeholder_preview">
+        Can\'t display this image.\nThe permission to read external storage is not granted
+    </string>
 
     <!-- Error Toasts -->
     <string name="toast_no_system_galleries">The Image can\'t be opened.

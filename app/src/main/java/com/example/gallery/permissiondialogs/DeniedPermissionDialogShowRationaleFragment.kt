@@ -31,7 +31,7 @@ class DeniedPermissionDialogShowRationaleFragment : DialogFragment() {
         return MaterialAlertDialogBuilder(requireContext())
             .setTitle(getText(R.string.permission_rationale_dialog_title))
             .setMessage(getText(R.string.permission_rationale_dialog_body))
-            .setPositiveButton(getText(R.string.permission_rationale_dialog_yes)) { _, _, ->
+            .setPositiveButton(getText(R.string.permission_rationale_dialog_yes)) { _, _ ->
                 listener.onYesClick()
             }
             .setNegativeButton(getText(R.string.permission_rationale_dialog_no)) {

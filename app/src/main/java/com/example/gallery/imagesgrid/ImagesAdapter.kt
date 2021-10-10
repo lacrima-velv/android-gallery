@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.ImageLoaderFactory
 import coil.imageLoader
 import coil.request.ImageRequest
 import coil.size.Precision

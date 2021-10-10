@@ -38,7 +38,7 @@
 
     <TextView
         android:id="@+id/text_empty"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/empty_gallery_placeholder"
         android:textAlignment="center"
@@ -65,9 +65,9 @@
 
     <TextView
         android:id="@+id/text_permission"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/permission_placeholder"
+        android:text="@string/permission_placeholder_gallery"
         android:textAlignment="center"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
